@@ -3,7 +3,7 @@
         'name' => 'druckermeister/codguard-woocommerce',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '26ea1cdcc9c0a6d478f646b5c68e7890089f668d',
+        'reference' => 'da0e57049b2dbff7c34721c4c6ac273bf21a0ae2',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'druckermeister/codguard-woocommerce' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '26ea1cdcc9c0a6d478f646b5c68e7890089f668d',
+            'reference' => 'da0e57049b2dbff7c34721c4c6ac273bf21a0ae2',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

@@ -1,6 +1,6 @@
 === CodGuard for WooCommerce ===
-Version: 2.0.9
-Release Date: November 3, 2025
+Version: 2.1.1
+Release Date: November 4, 2025
 
 == What's Included ==
 
