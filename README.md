@@ -1,8 +1,11 @@
-# CodGuard for WooCommerce - Version 2.0.8
+# CodGuard for WooCommerce - Version 2.1.1
 
-## What's New in 2.0.8
+## [2.1.1] - 2025-11-04
 
-### Major Changes
+### Changed
+- Now syncs orders based on `date_modified` instead of `date_created`
+- This ensures orders that were updated/completed yesterday are synced
+- Better captures status changes that occurred yesterday
 
 ✅ **Proper WP-Cron Scheduling Implemented**
 - Automatic daily synchronization now properly scheduled at 02:00 local time
@@ -279,8 +282,8 @@ When sync runs (success or failure), an email is sent to:
 ## Support
 
 **Documentation:** https://codguard.com/docs  
-**Support Email:** support@codguard.com  
-**Plugin Version:** 2.0.8  
+**Support Email:** info@codguard.com  
+**Plugin Version:** 2.1.1  
 **Release Date:** November 3, 2025
 
 ---

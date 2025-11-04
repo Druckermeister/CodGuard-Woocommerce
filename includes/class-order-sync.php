@@ -165,7 +165,8 @@ class CodGuard_Order_Sync {
     }
 
     /**
-     * Get orders from yesterday
+     * Get orders from yesterday based on last modified date
+     * This ensures we catch orders that were updated/completed yesterday
      *
      * @return array Array of WC_Order objects
      */
@@ -178,23 +179,23 @@ class CodGuard_Order_Sync {
         $yesterday_start = new DateTime('yesterday 00:00:00', $timezone);
         $yesterday_end = new DateTime('yesterday 23:59:59', $timezone);
 
-        // Query ALL orders from yesterday - no payment method filter
+        // Query orders modified yesterday (not created)
         $args = array(
-            'limit'        => -1,
-            'date_created' => $yesterday_start->getTimestamp() . '...' . $yesterday_end->getTimestamp(),
-            'return'       => 'objects',
+            'limit'         => -1,
+            'date_modified' => $yesterday_start->getTimestamp() . '...' . $yesterday_end->getTimestamp(),
+            'return'        => 'objects',
         );
 
         // Get orders
         $orders = wc_get_orders($args);
 
         codguard_log(sprintf(
-            'Querying ALL orders from %s to %s',
+            'Querying orders MODIFIED from %s to %s',
             $yesterday_start->format('Y-m-d H:i:s'),
             $yesterday_end->format('Y-m-d H:i:s')
         ), 'debug');
 
-        codguard_log(sprintf('Found %d total orders', count($orders)), 'debug');
+        codguard_log(sprintf('Found %d orders modified yesterday', count($orders)), 'debug');
 
         return $orders;
     }
