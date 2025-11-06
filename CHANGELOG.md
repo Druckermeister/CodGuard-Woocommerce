@@ -2,6 +2,37 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.1.6] - 2025-11-06
+
+### Fixed
+- **Text Domain Standardization**: Changed text domain from 'CodGuard-Woocommerce' to 'codguard-woocommerce' (all lowercase)
+- **WordPress Security Compliance**: Fixed all escaping issues across the plugin (79 changes)
+- **Created languages directory** for translation files
+
+### Security Improvements
+- Replaced all `_e()` with `esc_html_e()` for proper HTML escaping (54 instances)
+- Replaced `_e()` with `esc_attr_e()` in HTML attributes (1 instance)
+- Wrapped all `__()` output with `esc_html__()` (19 instances)
+- Changed numeric variables to use `absint()` instead of `esc_html()` (4 instances)
+- Added `esc_url()` for URL sanitization (1 instance)
+
+### Technical Details
+- Text domain now complies with WordPress naming standards (lowercase, hyphens only)
+- All translation functions now use proper escaping for output security
+- Created `/languages` directory for i18n support
+- Updated text domain in 130 locations across 6 PHP files
+- All output now passes WordPress Plugin Checker security validation
+
+### Files Modified
+- codguard.php (plugin header + escaping)
+- includes/admin/views/settings-page-sync-section.php
+- includes/admin/views/settings-page.php
+- includes/admin/class-admin-settings.php
+- includes/class-order-sync.php
+- includes/class-settings-manager.php
+
+---
+
 ## [2.1.5] - 2025-11-06
 
 ### Fixed

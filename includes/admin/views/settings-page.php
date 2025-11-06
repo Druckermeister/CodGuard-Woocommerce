@@ -16,20 +16,20 @@ $is_enabled = CodGuard_Settings_Manager::is_enabled();
 ?>
 
 <div class="wrap codguard-settings-wrap">
-    <h1><?php _e('CodGuard Settings', 'CodGuard-Woocommerce'); ?></h1>
-    
+    <h1><?php esc_html_e('CodGuard Settings', 'codguard-woocommerce'); ?></h1>
+
     <div class="codguard-settings-header">
-        <p><?php _e('Configure your CodGuard integration to manage cash-on-delivery payments based on customer ratings.', 'CodGuard-Woocommerce'); ?></p>
+        <p><?php esc_html_e('Configure your CodGuard integration to manage cash-on-delivery payments based on customer ratings.', 'codguard-woocommerce'); ?></p>
         
         <?php if ($is_enabled) : ?>
             <div class="codguard-status codguard-status-enabled">
                 <span class="dashicons dashicons-yes-alt"></span>
-                <?php _e('Plugin Enabled', 'CodGuard-Woocommerce'); ?>
+                <?php esc_html_e('Plugin Enabled', 'codguard-woocommerce'); ?>
             </div>
         <?php else : ?>
             <div class="codguard-status codguard-status-disabled">
                 <span class="dashicons dashicons-warning"></span>
-                <?php _e('Plugin Disabled', 'CodGuard-Woocommerce'); ?>
+                <?php esc_html_e('Plugin Disabled', 'codguard-woocommerce'); ?>
             </div>
         <?php endif; ?>
     </div>
@@ -40,8 +40,8 @@ $is_enabled = CodGuard_Settings_Manager::is_enabled();
 
         <!-- Section 1: API Configuration -->
         <div class="codguard-settings-section">
-            <h2><?php _e('API Configuration', 'CodGuard-Woocommerce'); ?></h2>
-            <p class="description"><?php _e('Enter your CodGuard API credentials. You can find these in your CodGuard dashboard.', 'CodGuard-Woocommerce'); ?></p>
+            <h2><?php esc_html_e('API Configuration', 'codguard-woocommerce'); ?></h2>
+            <p class="description"><?php esc_html_e('Enter your CodGuard API credentials. You can find these in your CodGuard dashboard.', 'codguard-woocommerce'); ?></p>
 
             <table class="form-table" role="presentation">
                 <tbody>
@@ -49,7 +49,7 @@ $is_enabled = CodGuard_Settings_Manager::is_enabled();
                     <tr>
                         <th scope="row">
                             <label for="shop_id">
-                                <?php _e('Shop ID', 'CodGuard-Woocommerce'); ?>
+                                <?php esc_html_e('Shop ID', 'codguard-woocommerce'); ?>
                                 <span class="required">*</span>
                             </label>
                         </th>
@@ -63,7 +63,7 @@ $is_enabled = CodGuard_Settings_Manager::is_enabled();
                                 required
                             >
                             <p class="description">
-                                <?php _e('Your unique shop identifier from CodGuard.', 'CodGuard-Woocommerce'); ?>
+                                <?php esc_html_e('Your unique shop identifier from CodGuard.', 'codguard-woocommerce'); ?>
                             </p>
                         </td>
                     </tr>
@@ -72,7 +72,7 @@ $is_enabled = CodGuard_Settings_Manager::is_enabled();
                     <tr>
                         <th scope="row">
                             <label for="public_key">
-                                <?php _e('Public Key', 'CodGuard-Woocommerce'); ?>
+                                <?php esc_html_e('Public Key', 'codguard-woocommerce'); ?>
                                 <span class="required">*</span>
                             </label>
                         </th>
@@ -87,7 +87,7 @@ $is_enabled = CodGuard_Settings_Manager::is_enabled();
                                 minlength="10"
                             >
                             <p class="description">
-                                <?php _e('Your API public key (minimum 10 characters).', 'CodGuard-Woocommerce'); ?>
+                                <?php esc_html_e('Your API public key (minimum 10 characters).', 'codguard-woocommerce'); ?>
                             </p>
                         </td>
                     </tr>
@@ -96,7 +96,7 @@ $is_enabled = CodGuard_Settings_Manager::is_enabled();
                     <tr>
                         <th scope="row">
                             <label for="private_key">
-                                <?php _e('Private Key', 'CodGuard-Woocommerce'); ?>
+                                <?php esc_html_e('Private Key', 'codguard-woocommerce'); ?>
                                 <span class="required">*</span>
                             </label>
                         </th>
@@ -108,11 +108,11 @@ $is_enabled = CodGuard_Settings_Manager::is_enabled();
                                     id="private_key" 
                                     value="<?php echo esc_attr($settings['private_key']); ?>" 
                                     class="regular-text" 
-                                    placeholder="<?php _e('••••••••••••••••', 'CodGuard-Woocommerce'); ?>"
+                                    placeholder="<?php esc_attr_e('••••••••••••••••', 'codguard-woocommerce'); ?>"
                                     minlength="10"
                                 >
                                 <p class="description">
-                                    <?php _e('Private key is set. Leave blank to keep current value, or enter a new key to update.', 'CodGuard-Woocommerce'); ?>
+                                    <?php esc_html_e('Private key is set. Leave blank to keep current value, or enter a new key to update.', 'codguard-woocommerce'); ?>
                                 </p>
                             <?php else : ?>
                                 <input 
@@ -125,7 +125,7 @@ $is_enabled = CodGuard_Settings_Manager::is_enabled();
                                     minlength="10"
                                 >
                                 <p class="description">
-                                    <?php _e('Your API private key (minimum 10 characters). Keep this secure!', 'CodGuard-Woocommerce'); ?>
+                                    <?php esc_html_e('Your API private key (minimum 10 characters). Keep this secure!', 'codguard-woocommerce'); ?>
                                 </p>
                             <?php endif; ?>
                         </td>
@@ -136,8 +136,8 @@ $is_enabled = CodGuard_Settings_Manager::is_enabled();
 
         <!-- Section 2: Order Status Mapping -->
         <div class="codguard-settings-section">
-            <h2><?php _e('Order Status Mapping', 'CodGuard-Woocommerce'); ?></h2>
-            <p class="description"><?php _e('Map WooCommerce order statuses to CodGuard outcomes for order reporting.', 'CodGuard-Woocommerce'); ?></p>
+            <h2><?php esc_html_e('Order Status Mapping', 'codguard-woocommerce'); ?></h2>
+            <p class="description"><?php esc_html_e('Map WooCommerce order statuses to CodGuard outcomes for order reporting.', 'codguard-woocommerce'); ?></p>
 
             <table class="form-table" role="presentation">
                 <tbody>
@@ -145,7 +145,7 @@ $is_enabled = CodGuard_Settings_Manager::is_enabled();
                     <tr>
                         <th scope="row">
                             <label for="good_status">
-                                <?php _e('Successful Order Status', 'CodGuard-Woocommerce'); ?>
+                                <?php esc_html_e('Successful Order Status', 'codguard-woocommerce'); ?>
                             </label>
                         </th>
                         <td>
@@ -157,7 +157,7 @@ $is_enabled = CodGuard_Settings_Manager::is_enabled();
                                 <?php endforeach; ?>
                             </select>
                             <p class="description">
-                                <?php _e('Orders with this status will be marked as successful (outcome: 1) when reported to CodGuard.', 'CodGuard-Woocommerce'); ?>
+                                <?php esc_html_e('Orders with this status will be marked as successful (outcome: 1) when reported to CodGuard.', 'codguard-woocommerce'); ?>
                             </p>
                         </td>
                     </tr>
@@ -166,7 +166,7 @@ $is_enabled = CodGuard_Settings_Manager::is_enabled();
                     <tr>
                         <th scope="row">
                             <label for="refused_status">
-                                <?php _e('Refused Order Status', 'CodGuard-Woocommerce'); ?>
+                                <?php esc_html_e('Refused Order Status', 'codguard-woocommerce'); ?>
                             </label>
                         </th>
                         <td>
@@ -178,7 +178,7 @@ $is_enabled = CodGuard_Settings_Manager::is_enabled();
                                 <?php endforeach; ?>
                             </select>
                             <p class="description">
-                                <?php _e('Orders with this status will be marked as refused (outcome: -1) when reported to CodGuard.', 'CodGuard-Woocommerce'); ?>
+                                <?php esc_html_e('Orders with this status will be marked as refused (outcome: -1) when reported to CodGuard.', 'codguard-woocommerce'); ?>
                             </p>
                         </td>
                     </tr>
@@ -188,15 +188,15 @@ $is_enabled = CodGuard_Settings_Manager::is_enabled();
 
         <!-- Section 3: Payment Method Configuration -->
         <div class="codguard-settings-section">
-            <h2><?php _e('Payment Method Configuration', 'CodGuard-Woocommerce'); ?></h2>
-            <p class="description"><?php _e('Select which payment methods should trigger customer rating checks.', 'CodGuard-Woocommerce'); ?></p>
+            <h2><?php esc_html_e('Payment Method Configuration', 'codguard-woocommerce'); ?></h2>
+            <p class="description"><?php esc_html_e('Select which payment methods should trigger customer rating checks.', 'codguard-woocommerce'); ?></p>
 
             <table class="form-table" role="presentation">
                 <tbody>
                     <tr>
                         <th scope="row">
                             <label>
-                                <?php _e('Cash on Delivery Methods', 'CodGuard-Woocommerce'); ?>
+                                <?php esc_html_e('Cash on Delivery Methods', 'codguard-woocommerce'); ?>
                             </label>
                         </th>
                         <td>
@@ -215,11 +215,11 @@ $is_enabled = CodGuard_Settings_Manager::is_enabled();
                                     <?php endforeach; ?>
                                 </fieldset>
                                 <p class="description">
-                                    <?php _e('Select all payment methods that should trigger customer rating checks. Typically, this includes cash on delivery methods.', 'CodGuard-Woocommerce'); ?>
+                                    <?php esc_html_e('Select all payment methods that should trigger customer rating checks. Typically, this includes cash on delivery methods.', 'codguard-woocommerce'); ?>
                                 </p>
                             <?php else : ?>
                                 <p class="description">
-                                    <?php _e('No payment gateways are currently available. Please configure your WooCommerce payment methods first.', 'CodGuard-Woocommerce'); ?>
+                                    <?php esc_html_e('No payment gateways are currently available. Please configure your WooCommerce payment methods first.', 'codguard-woocommerce'); ?>
                                 </p>
                             <?php endif; ?>
                         </td>
@@ -230,8 +230,8 @@ $is_enabled = CodGuard_Settings_Manager::is_enabled();
 
         <!-- Section 4: Rating Settings -->
         <div class="codguard-settings-section">
-            <h2><?php _e('Rating Settings', 'CodGuard-Woocommerce'); ?></h2>
-            <p class="description"><?php _e('Configure how customer ratings affect payment method availability.', 'CodGuard-Woocommerce'); ?></p>
+            <h2><?php esc_html_e('Rating Settings', 'codguard-woocommerce'); ?></h2>
+            <p class="description"><?php esc_html_e('Configure how customer ratings affect payment method availability.', 'codguard-woocommerce'); ?></p>
 
             <table class="form-table" role="presentation">
                 <tbody>
@@ -239,7 +239,7 @@ $is_enabled = CodGuard_Settings_Manager::is_enabled();
                     <tr>
                         <th scope="row">
                             <label for="rating_tolerance">
-                                <?php _e('Rating Tolerance', 'CodGuard-Woocommerce'); ?>
+                                <?php esc_html_e('Rating Tolerance', 'codguard-woocommerce'); ?>
                             </label>
                         </th>
                         <td>
@@ -254,7 +254,7 @@ $is_enabled = CodGuard_Settings_Manager::is_enabled();
                                 class="small-text"
                             > %
                             <p class="description">
-                                <?php _e('Customers with a rating below this threshold will not be able to use COD payment methods. Recommended: 30-40%.', 'CodGuard-Woocommerce'); ?>
+                                <?php esc_html_e('Customers with a rating below this threshold will not be able to use COD payment methods. Recommended: 30-40%.', 'codguard-woocommerce'); ?>
                             </p>
                         </td>
                     </tr>
@@ -263,7 +263,7 @@ $is_enabled = CodGuard_Settings_Manager::is_enabled();
                     <tr>
                         <th scope="row">
                             <label for="rejection_message">
-                                <?php _e('Rejection Message', 'CodGuard-Woocommerce'); ?>
+                                <?php esc_html_e('Rejection Message', 'codguard-woocommerce'); ?>
                             </label>
                         </th>
                         <td>
@@ -276,7 +276,7 @@ $is_enabled = CodGuard_Settings_Manager::is_enabled();
                                 required
                             ><?php echo esc_textarea($settings['rejection_message']); ?></textarea>
                             <p class="description">
-                                <?php _e('This message will be displayed to customers whose rating is below the tolerance threshold. Maximum 500 characters.', 'CodGuard-Woocommerce'); ?>
+                                <?php esc_html_e('This message will be displayed to customers whose rating is below the tolerance threshold. Maximum 500 characters.', 'codguard-woocommerce'); ?>
                             </p>
                         </td>
                     </tr>
@@ -285,7 +285,7 @@ $is_enabled = CodGuard_Settings_Manager::is_enabled();
                     <tr>
                         <th scope="row">
                             <label for="notification_email">
-                                <?php _e('Notification Email', 'CodGuard-Woocommerce'); ?>
+                                <?php esc_html_e('Notification Email', 'codguard-woocommerce'); ?>
                             </label>
                         </th>
                         <td>
@@ -297,7 +297,7 @@ $is_enabled = CodGuard_Settings_Manager::is_enabled();
                                 class="regular-text"
                             >
                             <p class="description">
-                                <?php _e('Email address for API error notifications and alerts. Default: info@codguard.com', 'CodGuard-Woocommerce'); ?>
+                                <?php esc_html_e('Email address for API error notifications and alerts. Default: info@codguard.com', 'codguard-woocommerce'); ?>
                             </p>
                         </td>
                     </tr>
@@ -307,15 +307,15 @@ $is_enabled = CodGuard_Settings_Manager::is_enabled();
 
         <!-- Save Button -->
         <p class="submit">
-            <?php submit_button(__('Save Settings', 'CodGuard-Woocommerce'), 'primary', 'submit', false); ?>
+            <?php submit_button(esc_html__('Save Settings', 'codguard-woocommerce'), 'primary', 'submit', false); ?>
         </p>
     </form>
 
     <!-- PHASE 3: Order Sync Status Section -->
     <?php if (class_exists('CodGuard_Order_Sync')) : ?>
     <div class="codguard-settings-section codguard-sync-status-section">
-        <h2><?php _e('Order Sync Status', 'CodGuard-Woocommerce'); ?></h2>
-        <p class="description"><?php _e('Daily order synchronization with CodGuard API. Orders are uploaded at 02:00 local time.', 'CodGuard-Woocommerce'); ?></p>
+        <h2><?php esc_html_e('Order Sync Status', 'codguard-woocommerce'); ?></h2>
+        <p class="description"><?php esc_html_e('Daily order synchronization with CodGuard API. Orders are uploaded at 02:00 local time.', 'codguard-woocommerce'); ?></p>
 
         <?php
         // Get sync status
@@ -330,17 +330,17 @@ $is_enabled = CodGuard_Settings_Manager::is_enabled();
         <div class="codguard-sync-status-grid">
             <!-- Schedule Status -->
             <div class="codguard-sync-status-item">
-                <h4><?php _e('Schedule Status', 'CodGuard-Woocommerce'); ?></h4>
+                <h4><?php esc_html_e('Schedule Status', 'codguard-woocommerce'); ?></h4>
                 <div class="value">
                     <?php if ($is_scheduled && $is_enabled) : ?>
                         <span class="codguard-sync-badge success">
                             <span class="dashicons dashicons-yes-alt"></span>
-                            <?php _e('Active', 'CodGuard-Woocommerce'); ?>
+                            <?php esc_html_e('Active', 'codguard-woocommerce'); ?>
                         </span>
                     <?php else : ?>
                         <span class="codguard-sync-badge error">
                             <span class="dashicons dashicons-warning"></span>
-                            <?php _e('Inactive', 'CodGuard-Woocommerce'); ?>
+                            <?php esc_html_e('Inactive', 'codguard-woocommerce'); ?>
                         </span>
                     <?php endif; ?>
                 </div>
@@ -348,13 +348,13 @@ $is_enabled = CodGuard_Settings_Manager::is_enabled();
 
             <!-- Next Sync Time -->
             <div class="codguard-sync-status-item">
-                <h4><?php _e('Next Scheduled Sync', 'CodGuard-Woocommerce'); ?></h4>
+                <h4><?php esc_html_e('Next Scheduled Sync', 'codguard-woocommerce'); ?></h4>
                 <div class="value <?php echo $is_scheduled ? 'success' : 'pending'; ?>">
-                    <?php 
+                    <?php
                     if ($next_sync) {
                         echo esc_html($next_sync);
                     } else {
-                        _e('Not scheduled', 'CodGuard-Woocommerce');
+                        esc_html_e('Not scheduled', 'codguard-woocommerce');
                     }
                     ?>
                 </div>
@@ -362,26 +362,26 @@ $is_enabled = CodGuard_Settings_Manager::is_enabled();
 
             <!-- Last Sync Status -->
             <div class="codguard-sync-status-item">
-                <h4><?php _e('Last Sync', 'CodGuard-Woocommerce'); ?></h4>
+                <h4><?php esc_html_e('Last Sync', 'codguard-woocommerce'); ?></h4>
                 <div class="value">
                     <?php if ($last_sync) : ?>
                         <span id="codguard-last-sync">
-                            <?php echo esc_html(human_time_diff($last_sync, current_time('timestamp')) . ' ' . __('ago', 'CodGuard-Woocommerce')); ?>
+                            <?php echo esc_html(human_time_diff($last_sync, current_time('timestamp')) . ' ' . __('ago', 'codguard-woocommerce')); ?>
                         </span>
                         <br>
                         <span class="codguard-sync-badge <?php echo $last_sync_status === 'success' ? 'success' : 'error'; ?>">
                             <?php
                             if ($last_sync_status === 'success') {
                                 /* translators: %d: number of orders synced */
-                                printf(__('%d orders synced', 'CodGuard-Woocommerce'), $last_sync_count);
+                                printf(esc_html__('%d orders synced', 'codguard-woocommerce'), absint($last_sync_count));
                             } else {
-                                _e('Failed', 'CodGuard-Woocommerce');
+                                esc_html_e('Failed', 'codguard-woocommerce');
                             }
                             ?>
                         </span>
                     <?php else : ?>
                         <span class="codguard-sync-badge pending">
-                            <?php _e('Never run', 'CodGuard-Woocommerce'); ?>
+                            <?php esc_html_e('Never run', 'codguard-woocommerce'); ?>
                         </span>
                     <?php endif; ?>
                 </div>
@@ -392,10 +392,10 @@ $is_enabled = CodGuard_Settings_Manager::is_enabled();
         <div style="margin-top: 20px;">
             <button type="button" id="codguard-manual-sync" class="button button-secondary">
                 <span class="dashicons dashicons-update"></span>
-                <span class="button-text"><?php _e('Sync Now', 'CodGuard-Woocommerce'); ?></span>
+                <span class="button-text"><?php esc_html_e('Sync Now', 'codguard-woocommerce'); ?></span>
             </button>
             <p class="description" style="margin-top: 10px;">
-                <?php _e('Manually trigger order synchronization for yesterday\'s orders. This will upload all COD orders from the previous day to CodGuard.', 'CodGuard-Woocommerce'); ?>
+                <?php esc_html_e('Manually trigger order synchronization for yesterday\'s orders. This will upload all COD orders from the previous day to CodGuard.', 'codguard-woocommerce'); ?>
             </p>
         </div>
 
