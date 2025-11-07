@@ -3,7 +3,7 @@
  * Plugin Name: CodGuard for WooCommerce
  * Plugin URI: https://codguard.com
  * Description: Integrates with the CodGuard API to manage cash-on-delivery payment options based on customer ratings and synchronize order data.
- * Version: 2.1.10
+ * Version: 2.2.0
  * Author: CodGuard
  * Author URI: https://codguard.com
  * Text Domain: codguard
@@ -22,7 +22,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Define plugin constants
-define('CODGUARD_VERSION', '2.1.10');
+define('CODGUARD_VERSION', '2.2.0');
 define('CODGUARD_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('CODGUARD_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('CODGUARD_PLUGIN_BASENAME', plugin_basename(__FILE__));
@@ -102,17 +102,17 @@ function codguard_init() {
     // Load customer rating check validator
     require_once CODGUARD_PLUGIN_DIR . 'includes/class-checkout-validator.php';
 
-    // Initialize order sync if plugin is enabled
+    // Initialize order sync (real-time bundled sync)
     if (function_exists('codguard_is_enabled') && codguard_is_enabled()) {
-        $order_sync = new CodGuard_Order_Sync();
-
-        // Schedule sync if not already scheduled
-        add_action('init', array($order_sync, 'maybe_schedule_sync'));
+        new CodGuard_Order_Sync();
     }
 
     // Register custom order statuses
     add_action('init', 'codguard_register_custom_order_statuses');
     add_filter('wc_order_statuses', 'codguard_add_custom_order_statuses');
+
+    // Clean up old sync data on upgrade
+    add_action('admin_init', 'codguard_upgrade_cleanup');
 }
 add_action('plugins_loaded', 'codguard_init');
 
@@ -134,15 +134,6 @@ function codguard_activate() {
         $defaults = CodGuard_Settings_Manager::get_default_settings();
         update_option('codguard_settings', $defaults);
     }
-    
-    // Load order sync class
-    require_once CODGUARD_PLUGIN_DIR . 'includes/class-order-sync.php';
-    
-    // Schedule cron if plugin is enabled
-    if (function_exists('codguard_is_enabled') && codguard_is_enabled()) {
-        $order_sync = new CodGuard_Order_Sync();
-        $order_sync->schedule_sync();
-    }
 }
 register_activation_hook(__FILE__, 'codguard_activate');
 
@@ -150,19 +141,53 @@ register_activation_hook(__FILE__, 'codguard_activate');
  * Plugin deactivation hook
  */
 function codguard_deactivate() {
-    // Clear scheduled cron
-    wp_clear_scheduled_hook('codguard_daily_order_sync');
-    
+    // Clear scheduled bundled send events
+    wp_clear_scheduled_hook('codguard_send_bundled_orders');
+
+    // Clear order queue
+    delete_transient('codguard_order_queue');
+
     // Clear any transients
     delete_transient('codguard_settings_saved');
     delete_transient('codguard_settings_errors');
-    
+
     // Log deactivation
     if (function_exists('codguard_log')) {
-        codguard_log('Plugin deactivated, cron schedule cleared', 'info');
+        codguard_log('Plugin deactivated, queue cleared', 'info');
     }
 }
 register_deactivation_hook(__FILE__, 'codguard_deactivate');
+
+/**
+ * Clean up old sync data after upgrade to v2.2.0
+ */
+function codguard_upgrade_cleanup() {
+    $cleanup_done = get_option('codguard_v220_cleanup', false);
+
+    if ($cleanup_done) {
+        return;
+    }
+
+    // Clear old daily cron schedule
+    wp_clear_scheduled_hook('codguard_daily_order_sync');
+
+    // Delete old sync-related options
+    delete_option('codguard_last_sync');
+    delete_option('codguard_last_sync_time');
+    delete_option('codguard_last_sync_status');
+    delete_option('codguard_last_sync_count');
+    delete_option('codguard_last_sync_error');
+    delete_option('codguard_last_sync_attempt');
+    delete_option('codguard_last_schedule_time');
+
+    // Mark cleanup as done
+    update_option('codguard_v220_cleanup', true);
+
+    // Log cleanup
+    if (function_exists('codguard_log')) {
+        codguard_log('Upgraded to v2.2.0: Old daily sync data cleaned up, now using real-time bundled sync', 'info');
+    }
+}
 
 /**
  * Note: As of WordPress 4.6, translations are automatically loaded from wp-content/languages/plugins/

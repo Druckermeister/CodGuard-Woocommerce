@@ -1,7 +1,7 @@
 <?php
 /**
  * Admin Settings Page Template
- * Includes Phase 1 (all original sections) + Phase 3 (sync status)
+ * CodGuard settings configuration
  */
 
 // Exit if accessed directly
@@ -310,98 +310,5 @@ $is_enabled = CodGuard_Settings_Manager::is_enabled();
             <?php submit_button(esc_html__('Save Settings', 'codguard'), 'primary', 'submit', false); ?>
         </p>
     </form>
-
-    <!-- PHASE 3: Order Sync Status Section -->
-    <?php if (class_exists('CodGuard_Order_Sync')) : ?>
-    <div class="codguard-settings-section codguard-sync-status-section">
-        <h2><?php esc_html_e('Order Sync Status', 'codguard'); ?></h2>
-        <p class="description"><?php esc_html_e('Daily order synchronization with CodGuard API. Orders are uploaded at 02:00 local time.', 'codguard'); ?></p>
-
-        <?php
-        // Get sync status
-        $is_scheduled = CodGuard_Order_Sync::is_scheduled();
-        $next_sync = CodGuard_Order_Sync::get_next_sync_time();
-        $last_sync = get_option('codguard_last_sync_time', false);
-        $last_sync_status = get_option('codguard_last_sync_status', 'unknown');
-        $last_sync_count = get_option('codguard_last_sync_count', 0);
-        ?>
-
-        <!-- Sync Status Grid -->
-        <div class="codguard-sync-status-grid">
-            <!-- Schedule Status -->
-            <div class="codguard-sync-status-item">
-                <h4><?php esc_html_e('Schedule Status', 'codguard'); ?></h4>
-                <div class="value">
-                    <?php if ($is_scheduled && $is_enabled) : ?>
-                        <span class="codguard-sync-badge success">
-                            <span class="dashicons dashicons-yes-alt"></span>
-                            <?php esc_html_e('Active', 'codguard'); ?>
-                        </span>
-                    <?php else : ?>
-                        <span class="codguard-sync-badge error">
-                            <span class="dashicons dashicons-warning"></span>
-                            <?php esc_html_e('Inactive', 'codguard'); ?>
-                        </span>
-                    <?php endif; ?>
-                </div>
-            </div>
-
-            <!-- Next Sync Time -->
-            <div class="codguard-sync-status-item">
-                <h4><?php esc_html_e('Next Scheduled Sync', 'codguard'); ?></h4>
-                <div class="value <?php echo $is_scheduled ? 'success' : 'pending'; ?>">
-                    <?php
-                    if ($next_sync) {
-                        echo esc_html($next_sync);
-                    } else {
-                        esc_html_e('Not scheduled', 'codguard');
-                    }
-                    ?>
-                </div>
-            </div>
-
-            <!-- Last Sync Status -->
-            <div class="codguard-sync-status-item">
-                <h4><?php esc_html_e('Last Sync', 'codguard'); ?></h4>
-                <div class="value">
-                    <?php if ($last_sync) : ?>
-                        <span id="codguard-last-sync">
-                            <?php echo esc_html(human_time_diff($last_sync, current_time('timestamp')) . ' ' . __('ago', 'codguard')); ?>
-                        </span>
-                        <br>
-                        <span class="codguard-sync-badge <?php echo $last_sync_status === 'success' ? 'success' : 'error'; ?>">
-                            <?php
-                            if ($last_sync_status === 'success') {
-                                /* translators: %d: number of orders synced */
-                                printf(esc_html__('%d orders synced', 'codguard'), absint($last_sync_count));
-                            } else {
-                                esc_html_e('Failed', 'codguard');
-                            }
-                            ?>
-                        </span>
-                    <?php else : ?>
-                        <span class="codguard-sync-badge pending">
-                            <?php esc_html_e('Never run', 'codguard'); ?>
-                        </span>
-                    <?php endif; ?>
-                </div>
-            </div>
-        </div>
-
-        <!-- Manual Sync Button -->
-        <div style="margin-top: 20px;">
-            <button type="button" id="codguard-manual-sync" class="button button-secondary">
-                <span class="dashicons dashicons-update"></span>
-                <span class="button-text"><?php esc_html_e('Sync Now', 'codguard'); ?></span>
-            </button>
-            <p class="description" style="margin-top: 10px;">
-                <?php esc_html_e('Manually trigger order synchronization for yesterday\'s orders. This will upload all COD orders from the previous day to CodGuard.', 'codguard'); ?>
-            </p>
-        </div>
-
-        <!-- Sync Message Container -->
-        <div id="codguard-sync-message" style="display: none;"></div>
-    </div>
-    <?php endif; ?>
 
 </div>
