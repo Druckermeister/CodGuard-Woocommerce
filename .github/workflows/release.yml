@@ -74,9 +74,10 @@ jobs:
           test -d build/test-extract/codguard/includes
           test -d build/test-extract/codguard/assets
           test -d build/test-extract/codguard/languages
+          rm -rf build/test-extract
 
       - name: Upload build artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: codguard-plugin
           path: build/codguard.zip

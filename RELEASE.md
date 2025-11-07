@@ -55,6 +55,10 @@ rsync -av \
   ./ build/codguard
 cd build
 zip -r codguard.zip codguard
+unzip -q codguard.zip -d test-extract
+test -f test-extract/codguard/codguard.php
+test -f test-extract/codguard/vendor/autoload.php
+rm -rf test-extract
 ```
 
 After verification, restore development dependencies and clean up:
@@ -69,9 +73,22 @@ composer install
 
 The `.gitignore` file excludes `build/` and temporary vendor packages (`phpstan`, stubs, coding standards). Developers should keep those locally by running `composer install` (with dev dependencies). They are intentionally omitted from the production ZIP.
 
+Optionally, mirror the CI smoke test locally by spinning up MySQL and installing the plugin via WP-CLI:
+
+```bash
+docker run --name codguard-mysql -e MYSQL_DATABASE=wordpress -e MYSQL_USER=wordpress -e MYSQL_PASSWORD=wordpress -e MYSQL_ROOT_PASSWORD=wordpress -p 3306:3306 -d mysql:8.0
+wp core download --path=/tmp/wp --skip-content
+wp config create --path=/tmp/wp --dbname=wordpress --dbuser=wordpress --dbpass=wordpress --dbhost=127.0.0.1:3306 --skip-check
+wp db create --path=/tmp/wp
+wp core install --path=/tmp/wp --url="http://localhost" --title="CodGuard Test" --admin_user=admin --admin_password=admin --admin_email=admin@example.com
+wp plugin install build/codguard.zip --path=/tmp/wp --force
+wp plugin activate codguard --path=/tmp/wp
+docker stop codguard-mysql && docker rm codguard-mysql
+```
+
 ## 6. Continuous Integration
 
-- `Quality Checks` workflow (`.github/workflows/ci.yml`) runs on pushes and pull requests, executing PHPStan (level 5) and PHPCS with the WordPress standard (PHPCS results are currently advisory/non-blocking while legacy style issues are addressed).
+- `Quality Checks` workflow (`.github/workflows/ci.yml`) runs on pushes and pull requests, executing PHPStan (level 5) and PHPCS with the WordPress coding standard to catch regressions before merge.
 - `Build Plugin Artifact` workflow handles both branch pushes (artifact only) and tags (artifact + GitHub release asset + WordPress smoke test).
 
 ## 7. Troubleshooting
