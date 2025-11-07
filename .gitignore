@@ -1,2 +1,9 @@
 var/
+vendor/php-stubs/
+vendor/phpstan/
+vendor/phpcsstandards/
+vendor/wp-coding-standards/
+vendor/bin/phpstan
+vendor/bin/phpstan.phar
+build/
 
